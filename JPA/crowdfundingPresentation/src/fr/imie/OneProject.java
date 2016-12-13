@@ -2,20 +2,12 @@ package fr.imie;
 
 import java.io.IOException;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
-import javax.transaction.UserTransaction;
 
 import crowdfundingPersistance.Project;
 
@@ -26,10 +18,8 @@ import crowdfundingPersistance.Project;
 public class OneProject extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	@Resource
-	private UserTransaction transaction;
-	@PersistenceContext
-	private EntityManager em;
+	@EJB
+	IProjectBusiness projectBusiness;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -47,24 +37,7 @@ public class OneProject extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		Project project=null;
-		
-		try {
-			transaction.begin();
-			project =  em.find(Project.class, 1);
-			transaction.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			try {
-				transaction.rollback();
-			} catch (IllegalStateException | SecurityException | SystemException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-		if (project!=null){
-			response.getWriter().append(project.getDescription());
-		}
+		Project project=projectBusiness.getProjectById(1);
 		
 		request.setAttribute("project", project);
 		
