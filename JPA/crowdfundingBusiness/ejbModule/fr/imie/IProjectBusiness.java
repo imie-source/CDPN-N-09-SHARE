@@ -3,8 +3,6 @@
  */
 package fr.imie;
 
-import crowdfundingPersistance.Project;
-
 /**
  * @author imiedev
  *
