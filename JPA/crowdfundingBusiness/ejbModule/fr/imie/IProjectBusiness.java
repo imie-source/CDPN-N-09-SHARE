@@ -12,4 +12,6 @@ import java.util.List;
 public interface IProjectBusiness {
 	Project getProjectById(Integer id);
 	List<Project> getAllProject();
+	Project updateProject(Project project);
+	Project insertProject(Project project);
 }

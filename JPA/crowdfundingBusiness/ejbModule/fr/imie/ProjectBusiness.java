@@ -38,4 +38,15 @@ public class ProjectBusiness implements IProjectBusiness {
 		return em.createNamedQuery("Project.findAll",Project.class).getResultList();
 	}
 
+	@Override
+	public Project updateProject(Project project) {
+		return null;
+	}
+
+	@Override
+	public Project insertProject(Project project) {
+		em.persist(project);
+		return project;
+	}
+
 }

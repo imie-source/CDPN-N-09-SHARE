@@ -33,15 +33,35 @@ public class OneProject extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		Project project=projectBusiness.getProjectById(1);
-		
-		request.setAttribute("project", project);
-		
-		request.getRequestDispatcher("/WEB-INF/oneProject.jsp").forward(request, response);
-		
-		
+		Integer id = null;
+		try {
+
+			String action = request.getParameter("action");
+			action = action == null ? "" : action;
+			Project project = null;
+			switch (action) {
+			case "edit":
+				id = Integer.parseInt(request.getParameter("id"));
+				project = projectBusiness.getProjectById(id);
+				request.setAttribute("project", project);
+				request.setAttribute("mode", "edit");
+				break;
+			case "create":
+				request.setAttribute("mode", "edit");
+				break;
+			default:
+				id = Integer.parseInt(request.getParameter("id"));
+				project = projectBusiness.getProjectById(id);
+				request.setAttribute("project", project);
+				request.setAttribute("mode", "read");
+				break;
+			}
+
+			request.getRequestDispatcher("/WEB-INF/oneProject.jsp").forward(request, response);
+		} catch (Exception e) {
+			response.getWriter().append("requete non valide");
+		}
+
 	}
 
 	/**
@@ -50,8 +70,29 @@ public class OneProject extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+		String name = request.getParameter("nameInput");
+		String goalInput = request.getParameter("goalInput");
+		Integer goal = Integer.parseInt(goalInput);
+		String description = request.getParameter("descriptionInput");
+		Project project = new Project();
+		project.setName(name);
+		project.setGoal(goal);
+		project.setDescription(description);
+
+		String idInput = request.getParameter("id");
+
+		if (!idInput.equals("")) {
+			Integer id = Integer.parseInt(idInput);
+			project.setId(id);
+			projectBusiness.updateProject(project);
+
+		} else {
+			projectBusiness.insertProject(project);
+
+		}
+
+		response.sendRedirect(String.format("./oneProject?id=%S", project.getId()));
 	}
 
 }
