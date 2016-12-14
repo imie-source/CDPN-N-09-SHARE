@@ -2,7 +2,6 @@
 
 .tableContainer{
 	display: table;
-	width : 100%;
 }
 
 .tableRow{
@@ -10,15 +9,9 @@
 	
 }
 
-.tableRow:HOVER{
-	background-color: grey;
-	color: white;
-}
-
 .tableRow div{
 	display: table-cell;
 	padding: 5px;
-	border-bottom-style: solid;
 }
 
 .logo{
@@ -28,13 +21,14 @@
 .horizontalFlexContainer{
 	display: flex;
 	flex-wrap : wrap;
-	justify-content : space-between;
+	justify-content : space-around;
 	
 }
 
 .verticaleFlexContainer{
 	display: flex;
 	flex-direction : column;
+	overflow-y:auto;
 }
 
 #mainContainer{
@@ -104,15 +98,35 @@
 }
 
 .projectCard {
-	width : 400px;
+	width : 300px;
 	margin : 5px;
 	padding : 5px;
-	border-style: solid;
-	border-width: 1px;	
 	text-decoration : none;
-	color: white;
+	color: black;
+	background-color: white;
 }
 .projectCard:visited {
-	color: white;
+	color: black;
 	text-decoration : none;
+}
+
+.anchorButton{
+	padding : 10px;
+	margin : 10px;
+	background-color : blue;
+	color:white;
+	text-decoration : none;
+	border-style: none;
+	font-size: 20px;
+}
+
+.anchorButton:visited{
+	color:white;
+	text-decoration : none;
+}
+
+input{
+	width:100%;
+	font-size: 3em;
+	border-left-style: none;
 }

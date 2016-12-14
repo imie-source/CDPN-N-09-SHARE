@@ -7,7 +7,9 @@
 	<c:url value="oneProject" var="urlCreate">
 		<c:param name="action" value="create" />
 	</c:url>
-	<a href="${urlCreate}">ajouter</a>
+	<div class="horizontalFlexContainer">
+		<a class="anchorButton" href="${urlCreate}">ajouter</a>
+	</div>
 
 	<div class="horizontalFlexContainer">
 		<c:forEach items="${projects}" var="project">
@@ -16,11 +18,11 @@
 				<c:param name="id" value="${project.id}" />
 			</c:url>
 			<a href="${url}" class="projectCard">
-				<div>
-					<div>
+				<div >
+					<div class="bigText">
 						<c:out value="${project.name}" />
 					</div>
-					<div>
+					<div class="bigText">
 						<c:out value="${project.goal}" />
 					</div>
 					<div>

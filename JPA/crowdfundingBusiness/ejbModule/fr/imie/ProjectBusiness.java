@@ -40,7 +40,12 @@ public class ProjectBusiness implements IProjectBusiness {
 
 	@Override
 	public Project updateProject(Project project) {
-		return null;
+		Project projetToUpdate= em.find(Project.class,project.getId());
+		projetToUpdate.setGoal(project.getGoal());
+		projetToUpdate.setName(project.getName());
+		projetToUpdate.setDescription(project.getDescription());
+		return projetToUpdate;
+		
 	}
 
 	@Override

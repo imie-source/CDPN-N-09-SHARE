@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="projet")
-@NamedQuery(name="Project.findAll", query="SELECT p FROM Project p")
+@NamedQuery(name="Project.findAll", query="SELECT p FROM Project p order by p.id")
 public class Project {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
