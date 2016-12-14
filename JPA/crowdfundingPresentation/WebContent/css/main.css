@@ -27,15 +27,19 @@
 
 .horizontalFlexContainer{
 	display: flex;
-	height: 100%;
+	flex-wrap : wrap;
 	
 }
 
 .verticaleFlexContainer{
 	display: flex;
 	flex-direction : column;
-	height: 100%;
-	
+}
+
+#mainContainer{
+	flex-wrap : nowrap;
+	height :100%;
+
 }
 
 .menuContainer{
@@ -46,6 +50,7 @@
 	flex-grow:1;
 	background-color: silver;
 	color: white;
+
 }
 
 .asideContainer{
@@ -95,4 +100,13 @@
 
 .bigText button{
 	font-size: 40px;
+}
+
+.projectCard {
+	width : 400px;
+	margin : 5px;
+	padding : 5px;
+	border-style: solid;
+	border-width: 1px;
+	
 }

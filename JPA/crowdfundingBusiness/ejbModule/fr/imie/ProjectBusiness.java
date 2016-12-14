@@ -1,5 +1,7 @@
 package fr.imie;
 
+import java.util.List;
+
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,9 +27,15 @@ public class ProjectBusiness implements IProjectBusiness {
 	/**
      * @see IProjectBusiness#getProjectById(Integer)
      */
+    @Override
     public Project getProjectById(Integer id) {
     	Project project =  em.find(Project.class, id);
 		return project;
     }
+
+	@Override
+	public List<Project> getAllProject() {
+		return em.createNamedQuery("Project.findAll",Project.class).getResultList();
+	}
 
 }

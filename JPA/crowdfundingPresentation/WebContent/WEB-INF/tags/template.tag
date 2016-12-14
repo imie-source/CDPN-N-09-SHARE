@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="horizontalFlexContainer">
+	<div class="horizontalFlexContainer" id="mainContainer">
 		<div class="menuContainer">
 			<div>
 				<img class="logo" alt=""
@@ -16,7 +16,7 @@
 				<div class=buttonMenu>tous les projets</div>
 			</a>
 		</div>
-		<div class="generalContainer">
+		<div class="generalContainer verticaleFlexContainer">
 			<jsp:doBody />
 		</div>
 		<div class="asideContainer"></div>
