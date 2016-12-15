@@ -25,6 +25,11 @@
 					<div class="bigText">
 						<c:out value="${project.goal}" />
 					</div>
+					<div class="bigText">
+						<meter min="0" max="${project.goal}" value="${project.sumOfGifts}"></meter>
+					</div>
+					
+					
 					<div>
 						<c:out value="${project.description}" />
 					</div>

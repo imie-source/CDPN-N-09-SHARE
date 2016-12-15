@@ -1,12 +1,16 @@
 package fr.imie;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="projet")
@@ -23,6 +27,12 @@ public class Project {
 	
 	@Column(name="objectif")
 	private Integer goal;
+	
+	@OneToMany(mappedBy="project")
+	private List<Gift> gifts;
+
+	@Transient
+	private Integer sumOfGifts;
 	
 
 	public Integer getId() {
@@ -56,6 +66,21 @@ public class Project {
 	public void setGoal(Integer goal) {
 		this.goal = goal;
 	}
+
+	public List<Gift> getGifts() {
+		return gifts;
+	}
+
+	public Integer getSumOfGifts() {
+		return sumOfGifts;
+	}
+
+	public void setSumOfGifts(Integer sumOfGifts) {
+		this.sumOfGifts = sumOfGifts;
+	}
+	
+	
+	
 	
 	
 

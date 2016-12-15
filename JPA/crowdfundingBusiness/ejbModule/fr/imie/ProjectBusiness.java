@@ -30,12 +30,17 @@ public class ProjectBusiness implements IProjectBusiness {
     @Override
     public Project getProjectById(Integer id) {
     	Project project =  em.find(Project.class, id);
+    	this.computeGifts(project);
 		return project;
     }
 
 	@Override
 	public List<Project> getAllProject() {
-		return em.createNamedQuery("Project.findAll",Project.class).getResultList();
+		List<Project> projects = em.createNamedQuery("Project.findAll",Project.class).getResultList();
+		for (Project project : projects) {
+			this.computeGifts(project);
+		}
+		return projects;
 	}
 
 	@Override
@@ -52,6 +57,14 @@ public class ProjectBusiness implements IProjectBusiness {
 	public Project insertProject(Project project) {
 		em.persist(project);
 		return project;
+	}
+	
+	private void computeGifts(Project project){
+		Integer sumOfGifts = 0;
+		for (Gift gift : project.getGifts()) {
+			sumOfGifts += gift.getAmount();
+		}
+		project.setSumOfGifts(sumOfGifts);
 	}
 
 }
