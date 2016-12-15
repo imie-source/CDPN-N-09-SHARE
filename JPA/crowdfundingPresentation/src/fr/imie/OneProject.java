@@ -34,7 +34,7 @@ public class OneProject extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Integer id = null;
-		try {
+
 
 			String action = request.getParameter("action");
 			action = action == null ? "" : action;
@@ -58,9 +58,7 @@ public class OneProject extends HttpServlet {
 			}
 
 			request.getRequestDispatcher("/WEB-INF/oneProject.jsp").forward(request, response);
-		} catch (Exception e) {
-			response.getWriter().append("requete non valide");
-		}
+
 
 	}
 
@@ -71,26 +69,37 @@ public class OneProject extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String name = request.getParameter("nameInput");
-		String goalInput = request.getParameter("goalInput");
-		Integer goal = Integer.parseInt(goalInput);
-		String description = request.getParameter("descriptionInput");
 		Project project = new Project();
-		project.setName(name);
-		project.setGoal(goal);
-		project.setDescription(description);
+		if(request.getParameter("saveAction")!=null){
+			String name = request.getParameter("nameInput");
+			String goalInput = request.getParameter("goalInput");
+			Integer goal = Integer.parseInt(goalInput);
+			String description = request.getParameter("descriptionInput");
+			
+			project.setName(name);
+			project.setGoal(goal);
+			project.setDescription(description);
 
-		String idInput = request.getParameter("id");
+			String idInput = request.getParameter("id");
 
-		if (!idInput.equals("")) {
+			if (!idInput.equals("")) {
+				Integer id = Integer.parseInt(idInput);
+				project.setId(id);
+				projectBusiness.updateProject(project);
+
+			} else {
+				projectBusiness.insertProject(project);
+
+			}
+		}else if (request.getParameter("giveAction")!=null) {
+			String idInput = request.getParameter("id");
 			Integer id = Integer.parseInt(idInput);
-			project.setId(id);
-			projectBusiness.updateProject(project);
-
-		} else {
-			projectBusiness.insertProject(project);
-
+			String amountInput = request.getParameter("giftAmountInput");
+			Integer amount = Integer.parseInt(amountInput);
+			project= projectBusiness.getProjectById(id);
+			projectBusiness.giveToProject(project, amount, null);
 		}
+		
 
 		response.sendRedirect(String.format("./oneProject?id=%S", project.getId()));
 	}

@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author imiedev
@@ -32,6 +33,10 @@ public class Gift {
 	@ManyToOne
     @JoinColumn(name="projet_id", nullable=false)
 	private Project project;
+	
+	@ManyToOne
+	@JoinColumn(name="personne_id", nullable=true)
+	private User user;
 
 	public int getId() {
 		return id;
@@ -56,6 +61,15 @@ public class Gift {
 	public void setProject(Project project) {
 		this.project = project;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	
 	
 

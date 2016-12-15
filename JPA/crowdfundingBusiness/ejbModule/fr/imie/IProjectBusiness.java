@@ -14,4 +14,5 @@ public interface IProjectBusiness {
 	List<Project> getAllProject();
 	Project updateProject(Project project);
 	Project insertProject(Project project);
+	Project giveToProject(Project project, Integer amount, User user);
 }

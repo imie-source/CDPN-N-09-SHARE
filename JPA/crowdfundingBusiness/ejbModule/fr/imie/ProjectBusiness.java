@@ -7,6 +7,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import sun.net.www.content.image.gif;
+
 /**
  * Session Bean implementation class ProjectBusiness
  */
@@ -65,6 +67,20 @@ public class ProjectBusiness implements IProjectBusiness {
 			sumOfGifts += gift.getAmount();
 		}
 		project.setSumOfGifts(sumOfGifts);
+	}
+
+	@Override
+	public Project giveToProject(Project project, Integer amount, User user) {
+		Gift gift = new Gift();
+		project = this.getProjectById(project.getId());
+		gift.setProject(project);
+		gift.setAmount(amount);
+		gift.setUser(user);
+		em.persist(gift);
+		em.refresh(project);
+		this.computeGifts(project);
+		return project;	
+		
 	}
 
 }

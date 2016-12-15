@@ -10,7 +10,7 @@
 			<div class="tableContainer">
 
 
-				<div class="tableRow bigText"">
+				<div class="tableRow bigText">
 					<div>
 						<label for="nameInput">nom</label>
 					</div>
@@ -41,37 +41,79 @@
 
 				</div>
 				<input type="hidden" value="${projet.id}" name="id">
-				<button class="anchorButton">enregistrer</button>
+				<button class="anchorButton" name="saveAction">enregistrer</button>
 			</div>
 		</form>
 	</c:if>
 	<c:if test="${mode=='read'}">
 
-		<div class="verticalFlexContainer">
-			<div class="horizontalFlexContainer">
+
+		<div class="horizontalFlexContainer" style="flex-wrap:nowrap">
+			<div class="verticalFlexContainer">
 				<div class="veryBigText">
 					<c:out value="${project.name}"></c:out>
 				</div>
-				<div class="veryBigText">
-					<c:out value="${project.goal}"></c:out>
-					<span>€</span>
+
+				<div>
+					<c:out value="${project.description}"></c:out>
 				</div>
 
 
 
+				<c:url value="oneProject" var="url">
+					<c:param name="id" value="${project.id}" />
+					<c:param name="action" value="edit" />
+				</c:url>
+				<div class="horizontalFlexContainer">
+					<a class="anchorButton" href="${url}">editer</a>
+				</div>
 			</div>
-			<div class="bigText">
-				<c:out value="${project.description}"></c:out>
-			</div>
+			<div class="verticalFlexContainer">
+				<div class="bigText">
+					<c:out value="${project.goal}"></c:out>
+					<span>€</span>
+					<meter min="0" max="${project.goal}" value="${project.sumOfGifts}"
+						style="width: 100%"></meter>
+				</div>
 
-			<c:url value="oneProject" var="url">
-				<c:param name="id" value="${project.id}" />
-				<c:param name="action" value="edit" />
-			</c:url>
-			<div class="horizontalFlexContainer">
-				<a class="anchorButton" href="${url}">editer</a>
+				<form method="post">
+					<div class="horizontalFlexContainer">
+						<div>
+							<input type="number" name="giftAmountInput" id="giftAmountInput">
+						</div>
+						<input type="hidden" value="${projet.id}" name="id">
+						<div>
+							<button class="anchorButton" name="giveAction">donner</button>
+						</div>
+					</div>
+				</form>
+
+				<div class="tableContainer">
+					<c:forEach items="${project.gifts}" var="gift">
+						<div class="tableRow">
+							<div>
+								<c:out value="${gift.user.firstname}"></c:out>
+							</div>
+							<div>
+								<c:out value="${gift.amount}"></c:out>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+
 			</div>
 		</div>
+
+
+
+
+
+
+
+
+
+
+
 	</c:if>
 
 </t:template>
